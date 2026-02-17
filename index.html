@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XENOVERSE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="grid-container">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <span class="material-icons-outlined">search</span>
+            </div>
+            <div class="header-right">
+                <span class="material-icons-outlined">notifications</span>
+                <span class="material-icons-outlined">email</span>
+                <span class="material-icons-outlined">account_circle</span>
+            </div>
+        </header>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">shopping_cart</span> STORE
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+            
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">dashboard</span> DASHBOARD
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">inventory_2</span> PRODUCTS
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">category</span> CATEGORIES
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">storefront</span> INVENTORY
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">bar_chart</span> REPORTS
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons-outlined">settings</span> SETTINGS
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main-container">
+            <div class="main-title">
+                <h2>DASHBOARD</h2>
+            </div>
+
+            <div class="main-cards">
+                <!-- PRODUCTS CARD -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>PRODUCTS</h3>
+                        <span class="material-icons-outlined">inventory_2</span>
+                    </div>
+                    <h1>249</h1>        
+                </div>
+
+                <!-- CATEGORIES CARD -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>CATEGORIES</h3>
+                        <span class="material-icons-outlined">category</span>
+                    </div>
+                    <h1>25</h1>
+                </div>
+
+                <!-- CUSTOMERS CARD -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>CUSTOMERS</h3>
+                        <span class="material-icons-outlined">groups</span>
+                    </div>
+                    <h1>1500</h1>
+                </div>
+
+                <!-- ALERTS CARD -->
+                <div class="card">
+                    <div class="card-inner">
+                        <h3>INVENTORY WARNING</h3>
+                        <span class="material-icons-outlined">notification_important</span>
+                    </div>
+                    <h1>56</h1>
+                </div>
+            </div>
+        </main>
+        
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
