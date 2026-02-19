@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XENOVERSE</title>
+     <link rel="icon" type="image/png" href="faviconlogo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        // Prevent theme flash on page load
+        (function() {
+            const savedPreference = localStorage.getItem('themePreference');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            let theme = 'light';
+            
+            if (savedPreference === 'system') {
+                theme = systemPrefersDark ? 'dark' : 'light';
+            } else if (savedPreference === 'dark' || savedPreference === 'light') {
+                theme = savedPreference;
+            } else {
+                theme = systemPrefersDark ? 'dark' : 'light';
+            }
+            
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+</head>
+<body>
+    <div class="grid-container">
+        
+        <!-- HEADER -->
+        <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
+            </div>
+            <div class="header-left">
+                <div class="search-wrap" role="search">
+                    <button class="search-button" type="button" aria-label="Search" onclick="focusHeaderSearch()">
+                        <span class="material-icons-outlined">search</span>
+                    </button>
+                    <input
+                        id="header-search"
+                        class="search-input"
+                        type="search"
+                        placeholder="Search…"
+                        autocomplete="off"
+                    />
+                </div>
+            </div>
+            <div class="header-right">
+                <span class="material-icons-outlined header-icon" onclick="toggleDropdown('notifications')">notifications</span>
+                <span class="material-icons-outlined header-icon" onclick="toggleDropdown('messages')">email</span>
+                <span class="material-icons-outlined header-icon" onclick="toggleDropdown('profile')">account_circle</span>
+            </div>
+
+            <!-- Notifications Dropdown -->
+            <div id="notifications-dropdown" class="header-dropdown">
+                <div class="dropdown-header">
+                    <h3>Notifications</h3>
+                    <span class="material-icons-outlined" onclick="toggleDropdown('notifications')">close</span>
+                </div>
+                <div class="dropdown-content">
+                    <div class="notification-item">
+                        <span class="material-icons-outlined">info</span>
+                        <div>
+                            <p class="notification-title">New Order</p>
+                            <p class="notification-time">2 minutes ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <span class="material-icons-outlined">warning</span>
+                        <div>
+                            <p class="notification-title">Low Stock Alert</p>
+                            <p class="notification-time">1 hour ago</p>
+                        </div>
+                    </div>
+                    <div class="notification-item">
+                        <span class="material-icons-outlined">done</span>
+                        <div>
+                            <p class="notification-title">Order Completed</p>
+                            <p class="notification-time">3 hours ago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Messages Dropdown -->
+            <div id="messages-dropdown" class="header-dropdown">
+                <div class="dropdown-header">
+                    <h3>Messages</h3>
+                    <span class="material-icons-outlined" onclick="toggleDropdown('messages')">close</span>
+                </div>
+                <div class="dropdown-content">
+                    <div class="message-item">
+                        <div class="message-avatar">JD</div>
+                        <div>
+                            <p class="message-sender">John Doe</p>
+                            <p class="message-preview">Can you check the inventory report?</p>
+                        </div>
+                    </div>
+                    <div class="message-item">
+                        <div class="message-avatar">SM</div>
+                        <div>
+                            <p class="message-sender">Sarah Manager</p>
+                            <p class="message-preview">Meeting scheduled for 3 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Dropdown -->
+            <div id="profile-dropdown" class="header-dropdown">
+                <div class="dropdown-header">
+                    <h3>Profile</h3>
+                    <span class="material-icons-outlined" onclick="toggleDropdown('profile')">close</span>
+                </div>
+                <div class="dropdown-content profile-content">
+                    <button class="profile-option" onclick="switchTab('settings')">
+                        <span class="material-icons-outlined">settings</span>
+                        Settings
+                    </button>
+                    <button class="profile-option" onclick="switchTab('settings')">
+                        <span class="material-icons-outlined">person</span>
+                        My Profile
+                    </button>
+                    <button class="profile-option">
+                        <span class="material-icons-outlined">logout</span>
+                        Logout
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- SIDEBAR -->
+        <aside id="sidebar">
+            <div class="sidebar-title">
+                <div class="sidebar-brand">
+                    <span class="material-icons-outlined">shopping_cart</span> STORE
+                </div>
+                <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+            </div>
+            
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">dashboard</span> DASHBOARD
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Overview</li>
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Analytics</li>
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Statistics</li>
+                    </ul>
+                </li>
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">inventory_2</span> PRODUCTS
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">All Products</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Add Product</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Product Categories</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Low Stock</li>
+                    </ul>
+                </li>
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">category</span> CATEGORIES
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">All Categories</li>
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">Add Category</li>
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">Manage Categories</li>
+                    </ul>
+                </li>
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">storefront</span> INVENTORY
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock Levels</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock Alerts</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock History</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Adjustments</li>
+                    </ul>
+                </li>
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">bar_chart</span> REPORTS
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Sales Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Inventory Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Customer Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Financial Report</li>
+                    </ul>
+                </li>
+                <li class="sidebar-list-item">
+                    <div class="sidebar-item-header" onclick="toggleSubmenu(this)">
+                        <div class="sidebar-item-content">
+                            <span class="material-icons-outlined">settings</span> SETTINGS
+                        </div>
+                        <span class="material-icons-outlined expand-icon">chevron_right</span>
+                    </div>
+                    <ul class="submenu">
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">General Settings</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">User Management</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">Payment Methods</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">System Preferences</li>
+                    </ul>
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main-container">
+            <!-- DASHBOARD TAB -->
+            <div id="dashboard-tab" class="tab-content active">
+                <div class="main-title">
+                    <h2>DASHBOARD</h2>
+                </div>
+
+                <div class="main-cards">
+                    <!-- PRODUCTS CARD -->
+                    <div class="card" onclick="switchTab('products')" style="cursor: pointer;">
+                        <div class="card-inner">
+                            <h3>PRODUCTS</h3>
+                            <span class="material-icons-outlined">inventory_2</span>
+                        </div>
+                        <h1>249</h1>        
+                    </div>
+
+                    <!-- CATEGORIES CARD -->
+                    <div class="card" onclick="switchTab('categories')" style="cursor: pointer;">
+                        <div class="card-inner">
+                            <h3>CATEGORIES</h3>
+                            <span class="material-icons-outlined">category</span>
+                        </div>
+                        <h1>25</h1>
+                    </div>
+
+                    <!-- CUSTOMERS CARD -->
+                    <div class="card" onclick="switchTab('customers')" style="cursor: pointer;">
+                        <div class="card-inner">
+                            <h3>CUSTOMERS</h3>
+                            <span class="material-icons-outlined">groups</span>
+                        </div>
+                        <h1>1500</h1>
+                    </div>
+
+                    <!-- ALERTS CARD -->
+                    <div class="card" onclick="switchTab('inventory')" style="cursor: pointer;">
+                        <div class="card-inner">
+                            <h3>INVENTORY WARNING</h3>
+                            <span class="material-icons-outlined">notification_important</span>
+                        </div>
+                        <h1>56</h1>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTS TAB -->
+            <div id="products-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>PRODUCTS</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <p>Product management section. Here you can view, add, edit, and delete products.</p>
+                    <div class="placeholder-content">
+                        <span class="material-icons-outlined" style="font-size: 80px; opacity: 0.3;">inventory_2</span>
+                        <p>Product list will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CATEGORIES TAB -->
+            <div id="categories-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>CATEGORIES</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <p>Category management section. Organize your products into categories.</p>
+                    <div class="placeholder-content">
+                        <span class="material-icons-outlined" style="font-size: 80px; opacity: 0.3;">category</span>
+                        <p>Category list will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CUSTOMERS TAB -->
+            <div id="customers-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>CUSTOMERS</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <p>Customer management section. View and manage customer information.</p>
+                    <div class="placeholder-content">
+                        <span class="material-icons-outlined" style="font-size: 80px; opacity: 0.3;">groups</span>
+                        <p>Customer list will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- INVENTORY TAB -->
+            <div id="inventory-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>INVENTORY</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <p>Inventory management section. Track stock levels and inventory warnings.</p>
+                    <div class="placeholder-content">
+                        <span class="material-icons-outlined" style="font-size: 80px; opacity: 0.3;">storefront</span>
+                        <p>Inventory details will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORTS TAB -->
+            <div id="reports-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>REPORTS</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <p>Reports and analytics section. View sales reports and statistics.</p>
+                    <div class="placeholder-content">
+                        <span class="material-icons-outlined" style="font-size: 80px; opacity: 0.3;">bar_chart</span>
+                        <p>Reports and charts will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SETTINGS TAB -->
+            <div id="settings-tab" class="tab-content">
+                <div class="main-title">
+                    <h2>SETTINGS</h2>
+                </div>
+                <div class="tab-content-inner">
+                    <div class="settings-section">
+                        <h3>System Preferences</h3>
+                        <div class="settings-group">
+                            <label>Theme</label>
+                            <div class="theme-options">
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="system" onchange="setThemePreference('system')">
+                                    <span class="material-icons-outlined">brightness_auto</span>
+                                    <span>System</span>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="light" onchange="setThemePreference('light')">
+                                    <span class="material-icons-outlined">light_mode</span>
+                                    <span>Light</span>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="radio" name="theme" value="dark" onchange="setThemePreference('dark')">
+                                    <span class="material-icons-outlined">dark_mode</span>
+                                    <span>Dark</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
