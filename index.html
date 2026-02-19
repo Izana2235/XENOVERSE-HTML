@@ -14,14 +14,21 @@
         
         <!-- HEADER -->
         <header class="header">
+            <div class="menu-icon" onclick="openSidebar()">
+                <span class="material-icons-outlined">menu</span>
+            </div>
             <div class="header-left">
-                <div class="menu-icon" onclick="openSidebar()" aria-label="Open sidebar" role="button" tabindex="0">
-                    <span class="material-icons-outlined">menu</span>
-                </div>
-
-                <div class="search-container" role="search">
-                    <span class="material-icons-outlined search-icon">search</span>
-                    <input id="header-search" type="search" placeholder="Search…" autocomplete="off" />
+                <div class="search-wrap" role="search">
+                    <button class="search-button" type="button" aria-label="Search" onclick="focusHeaderSearch()">
+                        <span class="material-icons-outlined">search</span>
+                    </button>
+                    <input
+                        id="header-search"
+                        class="search-input"
+                        type="search"
+                        placeholder="Search…"
+                        autocomplete="off"
+                    />
                 </div>
             </div>
             <div class="header-right">
@@ -49,9 +56,9 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('dashboard')">Overview</li>
-                        <li onclick="switchTab('dashboard')">Analytics</li>
-                        <li onclick="switchTab('dashboard')">Statistics</li>
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Overview</li>
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Analytics</li>
+                        <li onclick="switchTab('dashboard'); closeSubmenuAfterClick(this)">Statistics</li>
                     </ul>
                 </li>
                 <li class="sidebar-list-item">
@@ -62,10 +69,10 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('products')">All Products</li>
-                        <li onclick="switchTab('products')">Add Product</li>
-                        <li onclick="switchTab('products')">Product Categories</li>
-                        <li onclick="switchTab('products')">Low Stock</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">All Products</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Add Product</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Product Categories</li>
+                        <li onclick="switchTab('products'); closeSubmenuAfterClick(this)">Low Stock</li>
                     </ul>
                 </li>
                 <li class="sidebar-list-item">
@@ -76,9 +83,9 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('categories')">All Categories</li>
-                        <li onclick="switchTab('categories')">Add Category</li>
-                        <li onclick="switchTab('categories')">Manage Categories</li>
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">All Categories</li>
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">Add Category</li>
+                        <li onclick="switchTab('categories'); closeSubmenuAfterClick(this)">Manage Categories</li>
                     </ul>
                 </li>
                 <li class="sidebar-list-item">
@@ -89,10 +96,10 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('inventory')">Stock Levels</li>
-                        <li onclick="switchTab('inventory')">Stock Alerts</li>
-                        <li onclick="switchTab('inventory')">Stock History</li>
-                        <li onclick="switchTab('inventory')">Adjustments</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock Levels</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock Alerts</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Stock History</li>
+                        <li onclick="switchTab('inventory'); closeSubmenuAfterClick(this)">Adjustments</li>
                     </ul>
                 </li>
                 <li class="sidebar-list-item">
@@ -103,10 +110,10 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('reports')">Sales Report</li>
-                        <li onclick="switchTab('reports')">Inventory Report</li>
-                        <li onclick="switchTab('reports')">Customer Report</li>
-                        <li onclick="switchTab('reports')">Financial Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Sales Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Inventory Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Customer Report</li>
+                        <li onclick="switchTab('reports'); closeSubmenuAfterClick(this)">Financial Report</li>
                     </ul>
                 </li>
                 <li class="sidebar-list-item">
@@ -117,10 +124,10 @@
                         <span class="material-icons-outlined expand-icon">chevron_right</span>
                     </div>
                     <ul class="submenu">
-                        <li onclick="switchTab('settings')">General Settings</li>
-                        <li onclick="switchTab('settings')">User Management</li>
-                        <li onclick="switchTab('settings')">Payment Methods</li>
-                        <li onclick="switchTab('settings')">System Preferences</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">General Settings</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">User Management</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">Payment Methods</li>
+                        <li onclick="switchTab('settings'); closeSubmenuAfterClick(this)">System Preferences</li>
                     </ul>
                 </li>
             </ul>
@@ -141,7 +148,7 @@
                             <h3>PRODUCTS</h3>
                             <span class="material-icons-outlined">inventory_2</span>
                         </div>
-                        <h1>100</h1>        
+                        <h1>249</h1>        
                     </div>
 
                     <!-- CATEGORIES CARD -->
