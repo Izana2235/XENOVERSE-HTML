@@ -85,6 +85,18 @@ document.addEventListener('click', function(event) {
 });
 
 // Sidebar functions
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    const grid = document.querySelector(".grid-container");
+
+    if (sidebar) {
+        sidebar.classList.toggle("active");
+    }
+    if (grid && window.innerWidth > 600) {
+        grid.classList.toggle("sidebar-collapsed");
+    }
+}
+
 function openSidebar() {
     const sidebar = document.getElementById("sidebar");
     const grid = document.querySelector(".grid-container");
@@ -187,36 +199,21 @@ function closeAllSubmenus() {
 
 // Close submenu when clicking submenu item
 function closeSubmenuAfterClick(element) {
-    const submenuUl = element.closest('ul.submenu');
-    if (!submenuUl) return;
+    // Don't close the submenu - just close the Mobile sidebar if on mobile
+    // This allows users to click different submenu items without the category collapsing
     
-    const listItem = submenuUl.closest('.sidebar-list-item');
-    if (!listItem) return;
-    
-    // Close this submenu
-    const expandIcon = listItem.querySelector('.expand-icon');
-    submenuUl.style.maxHeight = '0px';
-    if (expandIcon) expandIcon.style.transform = 'rotate(0deg)';
-    
-    setTimeout(() => {
-        listItem.classList.remove('expanded');
-    }, 300);
-    
-    // Close mobile sidebar after animation
-    setTimeout(() => {
-        if (window.innerWidth <= 600) {
-            const sidebar = document.getElementById("sidebar");
-            if (sidebar) {
-                sidebar.classList.remove("active");
-            }
+    if (window.innerWidth <= 600) {
+        const sidebar = document.getElementById("sidebar");
+        if (sidebar) {
+            sidebar.classList.remove("active");
         }
-    }, 350);
+    }
 }
 
 // Tab switching function
 function switchTab(tabName) {
-    // Close all submenus when switching tabs (e.g. clicking Dashboard)
-    closeAllSubmenus();
+    // Don't close submenus - allow them to stay expanded while navigating between items
+    // Users can click on different submenu items without categories collapsing
 
     // Hide all tab contents
     const allTabs = document.querySelectorAll('.tab-content');
@@ -258,13 +255,14 @@ function switchTab(tabName) {
     }
 }
 
-// Close sidebar when clicking outside (mobile)
+// Close sidebar when clicking outside (all devices)
 document.addEventListener('click', function(event) {
     const sidebar = document.getElementById('sidebar');
     const menuIcon = document.querySelector('.menu-icon');
     const searchWrap = document.querySelector('.search-wrap');
     
-    if (window.innerWidth <= 600 && sidebar.classList.contains('active')) {
+    // Close sidebar on both mobile and desktop when clicking outside
+    if (sidebar.classList.contains('active')) {
         if (!sidebar.contains(event.target) && !menuIcon.contains(event.target)) {
             closeSidebar();
         }
